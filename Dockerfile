@@ -6,7 +6,7 @@ FROM golang:latest AS builder-arm64
 ENV GOOS=linux
 ENV GOARCH=arm64
 
-FROM builder-$TARGETARCH$TARGETVARIANT AS final-builder
+FROM builder-$TARGETARCH AS final-builder
 
 ARG TARGETARCH
 
