@@ -45,7 +45,7 @@ RUN echo "I'm building on $BUILDOS/$BUILDARCH/$BUILDVARIANT"
 
 RUN echo "builder-$TARGETARCH$TARGETVARIANT"
 
-RUN apk add --upgrade --no-cache wget ca-certificates
+RUN apk add --upgrade --no-cache bash wget ca-certificates
 
 COPY --from=final-builder /solaredge-exporter_$TARGETARCH /usr/bin/solaredge-exporter
 
@@ -56,4 +56,4 @@ RUN chmod 755 /usr/bin/solaredge-exporter && chown solaredge-exporter:solaredge-
 
 USER $USERNAME
 
-CMD ["/usr/bin/solaredge-exporter"]
+CMD ["solaredge-exporter"]
