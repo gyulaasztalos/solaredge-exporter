@@ -1,14 +1,17 @@
 FROM golang:latest AS final-builder
-
+WORKDIR /build
 ARG TARGETARCH
 
 ENV GOOS=linux
 ENV GOARCH=$TARGETARCH
 
-RUN mkdir /build
 ADD . /build/
-WORKDIR /build
-RUN CGO_ENABLED=0 go build -o solaredge-exporter_${TARGETARCH} .
+
+RUN echo "TARGETARCH=$TARGETARCH"
+RUN go version
+RUN go env GOARCH GOOS
+RUN CGO_ENABLED=0 go build -o solaredge-exporter_$TARGETARCH .
+RUN ls -l /build/solaredge-exporter_*
 
 FROM --platform=$TARGETPLATFORM alpine:latest
 LABEL name="solaredge-exporter"
