@@ -1,14 +1,9 @@
-FROM golang:latest AS builder-amd64
-ENV GOOS=linux
-ENV GOARCH=amd64
-
-FROM golang:latest AS builder-arm64
-ENV GOOS=linux
-ENV GOARCH=arm64
-
-FROM builder-$TARGETARCH AS final-builder
+FROM golang:latest AS final-builder
 
 ARG TARGETARCH
+
+ENV GOOS=linux
+ENV GOARCH=$TARGETARCH
 
 RUN mkdir /build
 ADD . /build/
