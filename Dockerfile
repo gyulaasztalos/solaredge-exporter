@@ -1,4 +1,4 @@
-FROM golang:latest AS final-builder
+FROM golang:latest AS builder
 WORKDIR /build
 ARG TARGETARCH
 
@@ -40,7 +40,7 @@ RUN echo "builder-$TARGETARCH$TARGETVARIANT"
 
 RUN apk add --upgrade --no-cache wget ca-certificates
 
-COPY -from=final-builder /build/solaredge-exporter_$TARGETARCH /usr/bin/solaredge-exporter
+COPY -from=builder /build/solaredge-exporter_$TARGETARCH /usr/bin/solaredge-exporter
 
 # Create the user
 RUN addgroup -g $USER_GID $USERNAME && adduser -D -H -u $USER_UID -G $USERNAME $USERNAME
