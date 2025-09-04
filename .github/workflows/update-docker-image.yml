@@ -88,7 +88,6 @@ jobs:
           context: ./external-repo
           platforms: linux/amd64,linux/arm64
           push: true
-          no-cache: true
           tags: |
             asztalosgyula/solaredge-exporter:latest
             asztalosgyula/solaredge-exporter:${{ steps.date.outputs.today }}

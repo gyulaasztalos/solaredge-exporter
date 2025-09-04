@@ -5,10 +5,11 @@ FROM golang:latest AS builder-arm64
 ENV GOARCH=arm64
 
 FROM builder-$TARGETARCH AS final-builder
-WORKDIR /build/${TARGETARCH}
 ARG TARGETARCH
 
 ENV GOOS=linux
+
+WORKDIR /build/${TARGETARCH}
 
 ADD . /build/${TARGETARCH}/
 
