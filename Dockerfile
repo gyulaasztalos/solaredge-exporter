@@ -6,7 +6,7 @@ FROM golang:latest AS builder-arm64
 ENV GOOS=linux
 ENV GOARCH=arm64
 
-FROM builder-$TARGETARCH$TARGETVARIANT as final-builder
+FROM builder-$TARGETARCH$TARGETVARIANT AS final-builder
 
 ARG TARGETARCH
 
@@ -30,10 +30,10 @@ ARG USERNAME=solaredge-exporter
 ARG USER_UID=1000
 ARG USER_GID=1000
 
-ENV INVERTER_ADDRESS 10.10.20.14
-ENV INVERTER_PORT 1502
-ENV EXPORTER_INTERVAL 30
-ENV INVERTER_CLIENT_ID 0x01
+ENV INVERTER_ADDRESS=10.10.20.14
+ENV INVERTER_PORT=1502
+ENV EXPORTER_INTERVAL=30
+ENV INVERTER_CLIENT_ID=0x01
 
 RUN echo "I'm building for $TARGETOS/$TARGETARCH/$TARGETVARIANT"
 RUN echo "I'm building on $BUILDOS/$BUILDARCH/$BUILDVARIANT"
@@ -42,7 +42,7 @@ RUN echo "builder-$TARGETARCH$TARGETVARIANT"
 
 RUN apk add --upgrade --no-cache wget ca-certificates
 
-COPY -from=final-builder /build/solaredge-exporter_${TARGETARCH} /usr/bin/solaredge-exporter
+COPY -from=final-builder /build/solaredge-exporter_$TARGETARCH /usr/bin/solaredge-exporter
 
 # Create the user
 RUN addgroup -g $USER_GID $USERNAME && adduser -D -H -u $USER_UID -G $USERNAME $USERNAME
