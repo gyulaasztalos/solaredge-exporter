@@ -56,6 +56,6 @@ RUN chmod 755 /usr/bin/solaredge-exporter && chown solaredge-exporter:solaredge-
 
 USER $USERNAME
 
-WORKDIR /tmp
+WORKDIR /app
 
 CMD ["solaredge-exporter"]
